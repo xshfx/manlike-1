@@ -8,7 +8,43 @@ class PublicController extends Controller
 {
     public function login()
     {
-        // echo '微信收藏项目后台';
-        $this->display('Index/login');
+        if(IS_POST){
+
+            // dump($_POST);
+            $email = I('post.email');
+
+            $pass = I('post.pass');
+
+            $where['email'] = $email;
+            $where['status'] = array('NEQ', 0);
+
+            $data = M('admin')->field('password,email,account')->where($where)->find();
+
+
+            $isLogin = password_verify($pass, $data['password']);
+
+            if ($isLogin) {
+
+                $_SESSION['admin'] = $data;
+                $this->success('登录成功', U('Index/index'));
+                exit;
+            }else{
+
+                $this->error('登录失败');
+                exit;
+            }
+
+
+            // dump($data);
+            // echo M()->getLastSql();
+            // exit;
+
+        }else{
+
+
+            // echo '微信收藏项目后台';
+            $this->display('Index/login');
+        }
+
     }
 }

@@ -15,6 +15,7 @@ class CommonController extends Controller
         if ( empty($_SESSION['admin']) ) {
             
             $this->error('请登录',U('Public/login'));
+            exit;
         }
     }
 }
