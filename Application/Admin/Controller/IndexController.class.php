@@ -8,7 +8,7 @@ class IndexController extends CommonController
 {
     public function index()
     {
-        echo '微信收藏项目后台';
-        // $this->display('Index/index');
+       
+        $this->display('Index/admin-index');
     }
 }

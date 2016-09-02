@@ -10,17 +10,17 @@ class PublicController extends Controller
     {
         if(IS_POST){
 
-            // dump($_POST);
+
             $email = I('post.email');
 
             $pass = I('post.pass');
 
             $where['email'] = $email;
+
             $where['status'] = array('NEQ', 0);
 
             $data = M('admin')->field('password,email,account')->where($where)->find();
-
-
+            
             $isLogin = password_verify($pass, $data['password']);
 
             if ($isLogin) {
@@ -34,13 +34,7 @@ class PublicController extends Controller
                 exit;
             }
 
-
-            // dump($data);
-            // echo M()->getLastSql();
-            // exit;
-
         }else{
-
 
             // echo '微信收藏项目后台';
             $this->display('Index/login');
